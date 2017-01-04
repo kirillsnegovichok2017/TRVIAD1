@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col s6 offset-s3">
+    <h1>Raffle</h1>
+  </div>
+</div>
+
+
+<div ng-controller="RaffleCtrl">
+
+  <div class="row">
+      <form ng-submit="addEntry()">
+        <div class="input-field col s6 offset-s3">
+          <input placeholder="enter a name" type="text" id="input_1" ng-model="newEntry.name" class="validate">
+          <!--<label for="input_1">Name</label>-->
+        </div>
+        <div class="col s3">
+          <button class="btn waves-effect waves-light">Submit
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </form>
+  </div>
+
+  <div class="row">
+    <div class="col s6 offset-s3">
+      <button class="btn" ng-click="drawWinner()">Draw Winner!</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s6 offset-s3">
+      <ul class="collection">
+        <li class="collection-item" ng-repeat="entry in entries">
+          {{entry.name}}
+          <span ng-show="entry.winner" class="red-text text-darken-4">WINNER</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
+
+
