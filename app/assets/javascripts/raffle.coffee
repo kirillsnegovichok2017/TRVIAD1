@@ -18,4 +18,8 @@ raffleApp.controller('RaffleCtrl',['$scope', ($scope)->
   $scope.drawWinner = ->
     entry = $scope.randArrayItem($scope.entries)
     entry.winner = true
+    $scope.lastWinner = entry
+
+  $scope.isLastWinner = (entry) ->
+    $scope.lastWinner == entry
 ])

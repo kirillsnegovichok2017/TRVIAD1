@@ -32,7 +32,7 @@
       <ul class="collection">
         <li class="collection-item" ng-repeat="entry in entries">
           {{entry.name}}
-          <span ng-show="entry.winner" class="red-text text-darken-4">WINNER</span>
+          <span ng-show="entry.winner" ng-class="{ 'new badge' : isLastWinner(entry), badge: !isLastWinner(entry)}" class="badge red-text text-darken-4">WINNER</span>
         </li>
       </ul>
     </div>
