@@ -1,24 +1,27 @@
-raffleApp = angular.module('RaffleApp',[])
+raffleApp = angular.module('RaffleApp',["ngResource"])
 
-raffleApp.controller('RaffleCtrl',['$scope', ($scope)->
-  $scope.entries = [
-    {name: 'Mary'}
-    {name: 'Carry'}
-    {name: 'Parry'}
-  ]
+raffleApp.controller('RaffleCtrl',['$scope','$resource', ($scope, $resource)->
+  Entry = $resource("/entries/:id", {id: "@id"}, {update: {method: "PUT"}})
+  $scope.entries = Entry.query()
 
   $scope.addEntry = ->
     if $scope.newEntry.name?
-      $scope.entries.push($scope.newEntry)
+      entry = Entry.save($scope.newEntry)
+      $scope.entries.push(entry)
       $scope.newEntry = {}
 
   $scope.randArrayItem = (items) ->
-    r_item = items[Math.floor(Math.random()*items.length)]
+    items[Math.floor(Math.random()*items.length)]
 
   $scope.drawWinner = ->
-    entry = $scope.randArrayItem($scope.entries)
-    entry.winner = true
-    $scope.lastWinner = entry
+    pool = []
+    angular.forEach $scope.entries, (entry)->
+      pool.push(entry) if !entry.winner
+    if pool.length>0
+      entry = $scope.randArrayItem(pool)
+      entry.winner = true
+      entry.$update();
+      $scope.lastWinner = entry
 
   $scope.isLastWinner = (entry) ->
     $scope.lastWinner == entry

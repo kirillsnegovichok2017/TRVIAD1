@@ -16,4 +16,5 @@
 //= require materialize-sprockets
 //= require materialize/extras/nouislider
 //= require angular
+//= require angular-resource
 //= require_tree .
